@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+
+<br/><br/>
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      Order Summary
+    </div>
+    <div class="card-body">
+      {% for product in cart_products %}
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <strong>{{ product.name }}</strong><br>
+          <small>Price: {{ product.price }} DT</small><br>
+          <small>Quantity: {% for key, value in quantities.items %}
+            {% if key == product.id|slugify %}
+            {{ value }}
+            {% endif %}
+          {% endfor %}</small>
+        </div>
+      </div>
+      {% endfor %}
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Total:  {{ totals }} DT</strong>
+        </div>
+      </div>
+      <hr>
+      <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-outline-secondary">Update Items</a>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+      Shipping Info
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{% url 'billing_info' %}">
+        {% csrf_token %}
+      
+
+      {{ shipping_form.as_p }}
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-secondary">Continue To Billing</button>
+    </form>
+    </div>
+  </div>
+
+</div>
+<br/><br/><br/>
+{% endblock %}
