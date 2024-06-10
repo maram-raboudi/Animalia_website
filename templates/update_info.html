@@ -1,0 +1,31 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css'%}">
+<div class="login-page">
+    <div class="form">
+        <strong>Billing Information</strong>
+        <br/><br/>
+      <form method="POST" action="{% url 'update_info' %}">
+        {% csrf_token %}
+    
+        {{ form.as_p }}
+        <br/><br/>
+
+        <strong>Shipping Information</strong>
+        <br/><br/>
+
+        {{ shipping_form.as_p }}
+
+
+        <button type="submit" class="btn btn-secondary">Update Info</button>
+        
+      </form>
+
+      <br/><br/>
+    </div>
+  </div>
+
+
+
+
+
+

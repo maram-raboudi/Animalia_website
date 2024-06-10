@@ -1,0 +1,110 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+
+      <section id="foodies" class="my-5">
+        <div class="container my-5 py-5">
+    
+            <div class="dropdown">
+                <style>
+                  /* Custom styles for the button */
+                  .btn-bronze {
+                    background-color: #DEAD6F; /* Set the background color to bronze */
+                    color: #fff; /* Set the text color to white */
+                    border-color: #DEAD6F; /* Set the border color to match the background color */
+                  }
+                
+                  .btn-bronze:hover,
+                  .btn-bronze:focus {
+                    background-color: #DEAD6F; /* Change the background color on hover/focus */
+                    border-color: #DEAD6F; /* Change the border color on hover/focus */
+                  }
+                </style>
+                
+                <div class="dropdown">
+                  <button class="btn btn-bronze dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                    <a class="dropdown-item" href="{% url 'pets' %}">All Pets</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'category' 'cat' %}">
+                      <i class="bi bi-cat me-2"></i> Cat
+                    </a>
+                    <a class="dropdown-item" href="{% url 'category' 'dog' %}">
+                      <i class="bi bi-dog me-2"></i> Dog
+                    </a>
+                  </div>
+                </div>
+              </div>
+            
+                
+
+          <div class="isotope-container row">
+            
+            {% for product in products %}
+              {% if product.is_sale %}
+              <div class="item cat col-md-4 col-lg-3 my-4">
+                <!-- <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                  New
+                </div> -->
+                <div class ="badge bg-dark text-white position-absolute"
+                  style="top: 0.5ren;right: 0.5rem">Sale
+                </div>
+                <div class="card position-relative">
+                  <a href="{% url 'product' product.id %}"><img src="{{product.image.url }}" class="img-fluid rounded-4" alt="image"></a>
+                  <div class="card-body p-0">
+                    <h5 class="fw-bolder">{{product.name}}</h5>
+                   
+                      <h3 class="secondary-font text-primary"><strike>{{product.price}} DT</strike>
+                         &nbsp; {{product.sale_price}} DT</h3>
+                      <br/> {{product.description}}
+                      <div class="d-flex flex-wrap mt-3">
+                        <a href="#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                          <h5 class="text-uppercase m-0">Add to Cart</h5>
+                        </a>
+                        <a href="#" class="btn-wishlist px-4 pt-3 ">
+                          <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                        </a>
+                      </div>
+                    
+      
+                  </div>
+                </div>
+              </div>
+              {% else %}
+            <div class="item cat col-md-4 col-lg-3 my-4">
+              <!-- <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                New
+              </div> -->
+              <div class="card position-relative">
+                <a href="{% url 'product' product.id %}"><img src="{{product.image.url }}" class="img-fluid rounded-4" alt="image"></a>
+                <div class="card-body p-0">
+                 
+    
+                  <div class="card-text">
+                    <h5 class="fw-bolder">{{product.name}}</h5>
+                    <h3 class="secondary-font text-primary">{{product.price}} DT</h3>
+                    <br/> {{product.description}}
+                    <div class="d-flex flex-wrap mt-3">
+                      <a href="#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                      </a>
+                      <a href="#" class="btn-wishlist px-4 pt-3 ">
+                        <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                      </a>
+                    </div>
+                  </div>
+    
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+           
+    
+          
+      </section>
+    {% endblock %}
